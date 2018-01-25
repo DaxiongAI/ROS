@@ -9,7 +9,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-
 #include "qtts.h"
 #include "msp_cmn.h"
 #include "msp_errors.h"
@@ -106,7 +105,7 @@ int text_to_speech(const char* src_text, const char* des_path, const char* param
 		if (MSP_TTS_FLAG_DATA_END == synth_status)
 			break;
 		printf(">");
-		usleep(15*1000); //防止频繁占用CPU
+		usleep(15*500); //防止频繁占用CPU
 	}
 	printf("\n");
 	if (MSP_SUCCESS != ret)

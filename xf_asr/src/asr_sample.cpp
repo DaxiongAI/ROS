@@ -146,20 +146,20 @@ exit:
  */
 void iatCallback(const std_msgs::String::ConstPtr& msg)
 {
-	printf("callbacking>>>>>>>>>>>>>\n");
 	Recflag = true;  // 每次调用回调函数就准备进行语音侦听
-	if(msg -> data == "y" || msg -> data == "Y") // 只有当输入唤醒词"y" or "Y"时才进行语音识别
+	if(msg -> data == "start") // 只有当输入唤醒词"start"时才进行语音识别
 	{
+		printf("<<<<<<< start >>>>>>>");
 		audioOrMic();
 	}
 }
 
 int main(int argc, char* argv[])
 {
-	ros::init(argc,argv,"xf_iat_node");
+	ros::init(argc,argv,"xf_asr_node");
 	ros::NodeHandle n;
-	ros::Subscriber sub = n.subscribe("/xf_iat",1,iatCallback);
-	ros::Publisher pub = n.advertise<std_msgs::String>("/tuling",10);
+	ros::Subscriber sub = n.subscribe("/xf_asr",1,iatCallback);
+	ros::Publisher pub = n.advertise<std_msgs::String>("/tl_nlu",10);
 	ros::Rate loop_rate(10);
 	while(ros::ok())
 	{

@@ -97,8 +97,8 @@ int main(int argc,char **argv)
 {
 	ros::init(argc, argv, "tuling_node");
 	ros::NodeHandle n;
-	ros::Subscriber tuling_sub = n.subscribe("/tuling",10,tulingCallback);
-	ros::Publisher tuling_pub = n.advertise<std_msgs::String>("/xf_speak",10);
+	ros::Subscriber tuling_sub = n.subscribe("/tl_nlu",10,tulingCallback);
+	ros::Publisher tuling_pub = n.advertise<std_msgs::String>("/xf_tts",10);
 	ros::Rate loop_rate(10);
 	while(ros::ok())
 	{

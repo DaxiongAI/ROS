@@ -124,6 +124,7 @@ add_executable(tts_sample_node src/tts_sample.cpp)
 target_link_libraries(tts_sample_node ${catkin_LIBRARIES} -lmsc -lrt -ldl -lpthread)
 
 
+
 add_executable(asr_sample_node src/asr_sample.cpp src/speech_recognizer.cpp src/linuxrec.cpp)
 target_link_libraries(asr_sample_node ${catkin_LIBRARIES} -lmsc -lrt -ldl -lpthread -lasound)
 

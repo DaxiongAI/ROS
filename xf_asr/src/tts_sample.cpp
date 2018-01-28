@@ -160,11 +160,6 @@ int makeTextToWav(const char* Filename,const char* Text)
 		printf("MSPLogin failed, error code: %d.\n", ret);
 		MSPLogout();
 	}
-	printf("\n###########################################################################\n");
-	printf("## 语音合成（Text To Speech，TTS）技术能够自动将任意文字实时转换为连续的 ##\n");
-	printf("## 自然语音，是一种能够在任何时间、任何地点，向任何人提供语音信息服务的  ##\n");
-	printf("## 高效便捷手段，非常符合信息时代海量数据、动态更新和个性化查询的需求。  ##\n");
-	printf("###########################################################################\n\n");
 	/* 文本合成 */
 	printf("开始合成 ...\n");
 	ret = text_to_speech(text, filename, session_begin_params);
@@ -198,7 +193,7 @@ int main(int argc, char* argv[])
 	play_Wav();
 	ros::init(argc,argv,"xf_tts_node");
 	ros::NodeHandle nh;
-	ros::Subscriber tts_sub = nh.subscribe("/xf_speak",5,ttsCallback);
+	ros::Subscriber tts_sub = nh.subscribe("/xf_tts",5,ttsCallback);
 	ros::spin();
 	return 0;
 }

@@ -55,21 +55,13 @@ void setMotorSpeed(int wheel, int spd)
     if (spd >= 0) 
     {
       direcA = FORWARDS;
-<<<<<<< HEAD
       digitalWrite(M1, HIGH);
-=======
-      digitalWrite(M1, LOW);
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
       analogWrite(E1, spd);
     }
     else if (spd < 0) 
     {
       direcA = BACKWARDS;
-<<<<<<< HEAD
       digitalWrite(M1, LOW);
-=======
-      digitalWrite(M1, HIGH);
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
       analogWrite(E1, -spd);
     }
   }
@@ -78,21 +70,13 @@ void setMotorSpeed(int wheel, int spd)
     if (spd >= 0) 
     {
       direcB = FORWARDS;
-<<<<<<< HEAD
       digitalWrite(M2, LOW);
-=======
-      digitalWrite(M2, HIGH);
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
       analogWrite(E2, spd);
     }
     else if (spd < 0) 
     {
       direcB = BACKWARDS;
-<<<<<<< HEAD
       digitalWrite(M2, HIGH);
-=======
-      digitalWrite(M2, LOW);
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
       analogWrite(E2, -spd);
     }
   }

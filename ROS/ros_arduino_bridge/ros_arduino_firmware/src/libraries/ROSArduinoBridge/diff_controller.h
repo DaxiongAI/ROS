@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-=======
-/* Functions and type-defs for PID control.
-
-   Taken mostly from Mike Ferguson's ArbotiX code which lives at:
-   
-   http://vanadium-ros-pkg.googlecode.com/svn/trunk/arbotix/
-*/
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
 #include "commands.h"
 /* PID setpoint info For a Motor */
 typedef struct {
@@ -22,17 +13,9 @@ typedef struct {
   /*
   * Using integrated term (ITerm) instead of integrated error (Ierror),
   * to allow tuning changes,
-<<<<<<< HEAD
   */
   //int Ierror;
   int ITerm;                    //integrated term
-=======
-  * see http://brettbeauregard.com/blog/2011/04/improving-the-beginner%E2%80%99s-pid-tuning-changes/
-  */
-  //int Ierror;
-  int ITerm;                    //integrated term
-
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
   long output;                    // last motor setting
 }
 SetPointInfo;
@@ -106,15 +89,8 @@ void doAWheelPID(SetPointInfo * p) {
   long Perror;
   long output;
   int input;
-<<<<<<< HEAD
   input = p->Encoder - p->PrevEnc;
   Perror = p->TargetTicksPerFrame - input;  //计算出误差值
-=======
-
-  //Perror = p->TargetTicksPerFrame - (p->Encoder - p->PrevEnc);
-  input = p->Encoder - p->PrevEnc;
-  Perror = p->TargetTicksPerFrame - input;
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
 
 
   /*

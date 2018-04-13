@@ -11,10 +11,6 @@
 #define DIGITAL_READ   'd'
 #define READ_ENCODERS  'e'
 #define MOTOR_SPEEDS   'm'
-<<<<<<< HEAD
-=======
-#define PING           'p'
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
 #define RESET_ENCODERS 'r'
 #define UPDATE_PID     'u'
 #define DIGITAL_WRITE  'w'

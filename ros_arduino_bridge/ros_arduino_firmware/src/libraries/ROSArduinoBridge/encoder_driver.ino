@@ -96,12 +96,8 @@ long readEncoder(int i)
 }
 
 /* Wrap the encoder reset function */
-<<<<<<< HEAD
 void resetEncoders() 
 {
-=======
-void resetEncoders() {
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
   A_enc_pos = 0L;
   B_enc_pos = 0L;
   C_enc_pos = 0L;

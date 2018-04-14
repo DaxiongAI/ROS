@@ -8,13 +8,6 @@
 /* Include definition of serial commands */
 #include "commands.h"
 
-<<<<<<< HEAD
-=======
-/* Sensor functions */
-#include "sensors.h"
-
-
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
 /* Motor driver function definitions */
 #include "motor_driver.h"
 
@@ -52,17 +45,10 @@ char chr;
 char cmd;
 
 // Character arrays to hold the first and second arguments
-<<<<<<< HEAD
 char argv1[64];  // 16个参数,每个参3位数,然后加上15个冒号,再加上一个回车,最后加起来等于64,防止溢出
 char argv2[64];
 char argv3[64];
 char argv4[64];
-=======
-char argv1[48];
-char argv2[48];
-char argv3[48];
-char argv4[48];
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
 
 // The arguments converted to integers
 long arg1 = 0;
@@ -111,7 +97,6 @@ int runCommand() {
       Serial.println("OK");
       break;
     case DIGITAL_WRITE: //'w'
-<<<<<<< HEAD
       if (arg2 == 0) 
       {
         digitalWrite(arg1, LOW);
@@ -120,10 +105,6 @@ int runCommand() {
       {
         digitalWrite(arg1, HIGH);
       }
-=======
-      if (arg2 == 0) digitalWrite(arg1, LOW);
-      else if (arg2 == 1) digitalWrite(arg1, HIGH);
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
       Serial.println("OK");
       break;
     case PIN_MODE: //'c'
@@ -131,14 +112,7 @@ int runCommand() {
       else if (arg2 == 1) pinMode(arg1, OUTPUT);
       Serial.println("OK");
       break;
-<<<<<<< HEAD
   
-=======
-    case PING: //'p'
-      Serial.println(Ping(arg1));
-      break;
-
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
     case READ_ENCODERS: //'e'
       Serial.print(readEncoder(A_WHEEL));
       Serial.print(" ");
@@ -162,14 +136,10 @@ int runCommand() {
         resetPID();
         moving = 0;
       }
-<<<<<<< HEAD
       else 
       {
         moving = 1;
       }
-=======
-      else moving = 1;
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
       AWheelPID.TargetTicksPerFrame = arg1;
       BWheelPID.TargetTicksPerFrame = arg2;
       CWheelPID.TargetTicksPerFrame = arg3;
@@ -201,7 +171,6 @@ int runCommand() {
       DWheel_Kd = pid_args[13];
       DWheel_Ki = pid_args[14];
       DWheel_Ko = pid_args[15];
-<<<<<<< HEAD
 
       Serial.print(AWheel_Kp);
       Serial.print(" ");
@@ -237,9 +206,6 @@ int runCommand() {
       Serial.print(DWheel_Ki);
       Serial.print(" ");
       Serial.println(DWheel_Ko);
-=======
-      Serial.println("OK");
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
       break;
 
       case READ_PIDIN: //'i'
@@ -271,11 +237,8 @@ int runCommand() {
 /* Setup function--runs once at startup. */
 void setup() 
 {
-<<<<<<< HEAD
   pinMode(16,OUTPUT);  //这里两个引脚给高电平是为了给编码器供电
   pinMode(17,OUTPUT);
-=======
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
   Serial.begin(BAUDRATE);
   initEncoders();
   // Initialize the motor controller if used */
@@ -289,11 +252,8 @@ void setup()
 */
 void loop() 
 {
-<<<<<<< HEAD
   digitalWrite(16,HIGH);
   digitalWrite(17,HIGH);
-=======
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
   while (Serial.available() > 0) 
   {
 
@@ -303,7 +263,6 @@ void loop()
     // Terminate a command with a CR
     if (chr == 13) 
     {
-<<<<<<< HEAD
       if (arg == 1) 
       {
         argv1[index] = '\0';
@@ -320,12 +279,6 @@ void loop()
       {
         argv4[index] = '\0';
       }
-=======
-      if (arg == 1) argv1[index] = '\0';
-      else if (arg == 2) argv2[index] = '\0';
-      else if (arg == 3) argv3[index] = '\0';
-      else if (arg == 4) argv4[index] = '\0';
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
       runCommand();
       resetCommand();
     }
@@ -401,10 +354,7 @@ void loop()
   {
     ;
     setMotorSpeeds(0, 0 ,0, 0);
-<<<<<<< HEAD
     resetPID();
-=======
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
     moving = 0;
   }
 }

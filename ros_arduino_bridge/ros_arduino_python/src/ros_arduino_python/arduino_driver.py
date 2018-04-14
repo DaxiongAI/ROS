@@ -8,23 +8,13 @@ import sys, traceback
 from serial.serialutil import SerialException
 from serial import Serial
 
-<<<<<<< HEAD
-=======
-SERVO_MAX = 180
-SERVO_MIN = 0
-
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
 class Arduino:
     ''' Configuration Parameters
     '''
     N_ANALOG_PORTS = 6
     N_DIGITAL_PORTS = 12
 
-<<<<<<< HEAD
     def __init__(self, port="/dev/ttyACM0", baudrate=57600, timeout=0.5, motors_reversed=False):
-=======
-    def __init__(self, port="/dev/ttyUSB0", baudrate=57600, timeout=0.5, motors_reversed=False):
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
 
         self.PID_RATE = 30 # Do not change this!  It is a fixed property of the Arduino PID controller.
         self.PID_INTERVAL = 1000 / 30
@@ -34,24 +24,11 @@ class Arduino:
         self.timeout = timeout
         self.encoder_count = 0
         self.writeTimeout = timeout
-<<<<<<< HEAD
         self.interCharTimeout = timeout / 30.
-=======
-        self.interCharTimeout = timeout / 40.
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
         self.motors_reversed = motors_reversed
         # Keep things thread safe
         self.mutex = thread.allocate_lock()
 
-<<<<<<< HEAD
-=======
-        # An array to cache analog sensor readings
-        #self.analog_sensor_cache = [None] * self.N_ANALOG_PORTS
-
-        # An array to cache digital sensor readings
-        #self.digital_sensor_cache = [None] * self.N_DIGITAL_PORTS
-
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
     def connect(self):
         try:
             print "Connecting to Arduino on port", self.port, "..."
@@ -108,10 +85,6 @@ class Arduino:
                 return None
 
         value = value.strip('\r')
-<<<<<<< HEAD
-=======
-
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
         return value
 
     def recv_ack(self):
@@ -136,13 +109,8 @@ class Arduino:
             below in a thread safe manner.
         '''
         try:
-<<<<<<< HEAD
             values = self.recv(self.timeout * self.N_ANALOG_PORTS).split() # why ????
             return map(int, values)  #return int value list
-=======
-            values = self.recv(self.timeout * self.N_ANALOG_PORTS).split()   
-            return map(int, values)
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
         except:
             return []
 
@@ -273,11 +241,6 @@ class Arduino:
             raise SerialException
             return None
         else:
-<<<<<<< HEAD
-=======
-           ## if self.motors_reversed:
-            #    values[0], values[1] = -values[0], -values[1]
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
             return values
 
     def reset_encoders(self):
@@ -288,11 +251,6 @@ class Arduino:
     def drive(self,AWheel,BWheel,CWheel,DWheel):
         ''' Speeds are given in encoder ticks per PID interval
         '''
-<<<<<<< HEAD
-=======
-       # if self.motors_reversed:
-       #     left, right = -left, -right
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
         return self.execute_ack('m %d %d %d %d' % (AWheel, BWheel, CWheel, DWheel))
 
     def stop(self):
@@ -300,24 +258,6 @@ class Arduino:
         '''
         self.drive(0, 0, 0, 0)
 
-<<<<<<< HEAD
-=======
-    def analog_read(self, pin):
-        return self.execute('a %d' %pin)
-
-    def analog_write(self, pin, value):
-        return self.execute_ack('x %d %d' %(pin, value))
-
-    def digital_read(self, pin):
-        return self.execute('d %d' %pin)
-
-    def digital_write(self, pin, value):
-        return self.execute_ack('w %d %d' %(pin, value))
-
-    def pin_mode(self, pin, mode):
-        return self.execute_ack('c %d %d' %(pin, mode))
-
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
     def get_pidin(self):
         values = self.execute_array('i')
         if len(values) != 4:
@@ -336,17 +276,6 @@ class Arduino:
         else:
             return values
 
-<<<<<<< HEAD
-=======
-    def ping(self, pin):
-        ''' The srf05/Ping command queries an SRF05/Ping sonar sensor
-            connected to the General Purpose I/O line pinId for a distance,
-            and returns the range in cm.  Sonar distance resolution is integer based.
-        '''
-        return self.execute('p %d' %pin);
-
-
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
 """ Basic test for connectivity """
 if __name__ == "__main__":
     if os.name == "posix":
@@ -361,18 +290,6 @@ if __name__ == "__main__":
 
     print "Sleeping for 1 second..."
     time.sleep(1)
-<<<<<<< HEAD
-=======
-
-    print "Reading on analog port 0", myArduino.analog_read(0)
-    print "Reading on digital port 0", myArduino.digital_read(0)
-    print "Blinking the LED 3 times"
-    for i in range(3):
-        myArduino.digital_write(13, 1)
-        time.sleep(1.0)
-    #print "Current encoder counts", myArduino.encoders()
-
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
     print "Connection test successful.",
 
     myArduino.stop()

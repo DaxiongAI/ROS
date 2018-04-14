@@ -17,12 +17,12 @@ class BaseController:
         self.base_frame = base_frame
         self.rate = float(rospy.get_param("~base_controller_rate", 20))
         self.timeout = rospy.get_param("~base_controller_timeout", 0.3)
+        self.accel_limit = rospy.get_param('~accel_limit', 0.05)
+        self.debugPID = rospy.get_param('~debugPID', False)
+        self.motors_reversed = rospy.get_param("~motors_reversed", False)
+        self.linear_scale_correction = rospy.get_param("~linear_scale_correction", 1.0)
+        self.angular_scale_correction = rospy.get_param("~angular_scale_correction", 1.0)
         self.stopped = False
-<<<<<<< HEAD
-        #self.debugPID = False
-=======
-        self.debugPID = False
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
 
         pid_params = dict()
         pid_params['wheel_diameter'] = rospy.get_param("~wheel_diameter", "")
@@ -50,21 +50,11 @@ class BaseController:
         pid_params['DWheel_Ki'] = rospy.get_param("~DWheel_Ki", 0)
         pid_params['DWheel_Ko'] = rospy.get_param("~DWheel_Ko", 50)
 
-        self.accel_limit = rospy.get_param('~accel_limit', 0.05)
-        self.debugPID = rospy.get_param('~debugPID', False)
-        self.motors_reversed = rospy.get_param("~motors_reversed", False)
-        self.linear_scale_correction = rospy.get_param("~linear_scale_correction", 1.0)
-        self.angular_scale_correction = rospy.get_param("~angular_scale_correction", 1.0)
-
         # Set up PID parameters and check for missing values
         self.setup_pid(pid_params)
 
         # How many encoder ticks are there per meter?
-<<<<<<< HEAD
         self.ticks_per_meter = self.encoder_resolution * self.gear_reduction * 2 / (self.wheel_diameter * pi) 
-=======
-        self.ticks_per_meter = self.encoder_resolution * self.gear_reduction / (self.wheel_diameter * pi)
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
         self.ticks_per_meter = self.ticks_per_meter * self.linear_scale_correction
         # What is the maximum acceleration we will tolerate when changing wheel speeds?
         self.max_accel = self.accel_limit * self.ticks_per_meter / self.rate
@@ -235,15 +225,9 @@ class BaseController:
             vy = (-va + vb - vc + vd) / 4
             vth = (-va - vb + vc + vd) / (4 * self.wheel_track)
 
-<<<<<<< HEAD
             delta_x = (vx * cos(self.th) - vy * sin(self.th)) * dt
             delta_y = (vx * sin(self.th) + vy * cos(self.th)) * dt
             delta_th = vth * dt;
-=======
-            delta_x = (vx*cos(self.th) - vy*sin(self.th))*dt
-            delta_y = (vx*sin(self.th) + vy*cos(self.th))*dt
-            delta_th = vth*dt;
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
 
             self.x += delta_x
             self.y += delta_y
@@ -254,12 +238,7 @@ class BaseController:
             quaternion.y = 0.0
             quaternion.z = sin(self.th / 2.0)
             quaternion.w = cos(self.th / 2.0)
-<<<<<<< HEAD
             # Create the odometry transform frame broadcaster.
-=======
-
-            #Create the odometry transform frame broadcaster.
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
             self.odomBroadcaster.sendTransform(
                 (self.x, self.y, 0),
                 (quaternion.x, quaternion.y, quaternion.z, quaternion.w),
@@ -267,11 +246,7 @@ class BaseController:
                 self.base_frame,
                 "odom"
                 )
-<<<<<<< HEAD
 		
-=======
-
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
             odom = Odometry()
             odom.header.frame_id = "odom"
             odom.child_frame_id = self.base_frame
@@ -280,7 +255,6 @@ class BaseController:
             odom.pose.pose.position.y = self.y
             odom.pose.pose.position.z = 0
             odom.pose.pose.orientation = quaternion
-<<<<<<< HEAD
             '''
             odom.pose.covariance = [1e-9, 0, 0, 0, 0, 0,
                                     0, 1e-3, 1e-9, 0, 0, 0,
@@ -300,25 +274,6 @@ class BaseController:
                                     0, 0, 0, 0, 1e6, 0,
                                     0, 0, 0, 0, 0, 1e-9]
 			'''
-=======
-           # odom.pose.covariance = [1e-9, 0, 0, 0, 0, 0,
-            #                        0, 1e-3, 1e-9, 0, 0, 0,
-             #                       0, 0, 1e6, 0, 0, 0,
-              #                      0, 0, 0, 1e6, 0, 0,
-               #                     0, 0, 0, 0, 1e6, 0,
-                #                    0, 0, 0, 0, 0, 1e-9]
-
-            odom.twist.twist.linear.x = vx
-            odom.twist.twist.linear.y = vy
-            odom.twist.twist.angular.z = vth
-           # odom.twist.covariance = [1e-9, 0, 0, 0, 0, 0,
-            #                        0, 1e-3, 1e-9, 0, 0, 0,
-             #                       0, 0, 1e6, 0, 0, 0,
-              #                      0, 0, 0, 1e6, 0, 0,
-               #                     0, 0, 0, 0, 1e6, 0,
-                #                    0, 0, 0, 0, 0, 1e-9]
-
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
             self.odomPub.publish(odom)
 
             if now > (self.last_cmd_vel + rospy.Duration(self.timeout)):
@@ -387,19 +342,14 @@ class BaseController:
         v_th = req.angular.z     # rad/s
 
         #reverse kinematic
-        vA = v_x - v_y - 2.6 * v_th
-        vB = v_x + v_y - 2.6 * v_th
-        vC = v_x - v_y + 2.6 * v_th
-        vD = v_x + v_y + 2.6 * v_th
+        vA = v_x - v_y - self.wheel_track * v_th
+        vB = v_x + v_y - self.wheel_track * v_th
+        vC = v_x - v_y + self.wheel_track * v_th
+        vD = v_x + v_y + self.wheel_track * v_th
         
               
         self.v_des_AWheel = int(vA * self.ticks_per_meter / self.arduino.PID_RATE)
         self.v_des_BWheel = int(vB * self.ticks_per_meter / self.arduino.PID_RATE)
         self.v_des_CWheel = int(vC * self.ticks_per_meter / self.arduino.PID_RATE)
         self.v_des_DWheel = int(vD * self.ticks_per_meter / self.arduino.PID_RATE)
-<<<<<<< HEAD
-=======
-        #rospy.loginfo("A v_des:"+str(self.v_des_AWheel)+",B v_des:"+str(self.v_des_BWheel)+",C v_des:" + str(self.v_des_CWheel))
-
->>>>>>> e18814525d04984e64170c6c457b4aa8b9d1961d
 

@@ -14,35 +14,35 @@ use_base_controller: True
 base_controller_rate: 10
 
 # For a robot that uses base_footprint, change base_frame to base_footprint
-base_frame: base_link
+base_frame: base_footprint
 
 # === Robot drivetrain parameters
 wheel_diameter: 0.1
-wheel_track: 0.255
+wheel_track: 0.26
 encoder_resolution: 12.9688
 gear_reduction: 64
 motors_reversed: True
 debugPID: False
-linear_scale_correction: 0.968888
-angular_scale_correction: 1.0525
+linear_scale_correction: 0.969
+angular_scale_correction: 1.05
 
 # === PID parameters
-AWheel_Kp: 100
+AWheel_Kp: 50
 AWheel_Kd: 15
 AWheel_Ki: 0
 AWheel_Ko: 50
 
-BWheel_Kp: 100
+BWheel_Kp: 50
 BWheel_Kd: 15
 BWheel_Ki: 0
 BWheel_Ko: 50
 
-CWheel_Kp: 100
+CWheel_Kp: 50
 CWheel_Kd: 16
 CWheel_Ki: 0
 CWheel_Ko: 50
 
-DWheel_Kp: 100
+DWheel_Kp: 50
 DWheel_Kd: 16
 DWheel_Ki: 0
 DWheel_Ko: 50

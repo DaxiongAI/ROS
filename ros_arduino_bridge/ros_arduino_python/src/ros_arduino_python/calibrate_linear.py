@@ -18,9 +18,9 @@ class CalibrateLinear():
         r = rospy.Rate(self.rate)
 
         #set the distance to travel
-        self.test_distance = 1.5
-        self.speed = 0.2
-        self.tolerance = 0.01
+        self.test_distance = 2.4
+        self.speed = 0.3
+        self.tolerance =0.02
         self.odom_linear_scale_correction = 1.0
         self.start_test = True
 
@@ -28,7 +28,7 @@ class CalibrateLinear():
         self.cmd_vel = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
 
         #The base frame is base_footprint for the robot
-        self.base_frame = rospy.get_param('~base_frame', '/base_link')
+        self.base_frame = rospy.get_param('~base_frame', '/base_footprint')
 
         #The odom frame is usually just /odom
         self.odom_frame = rospy.get_param('~odom_frame', '/odom')
@@ -76,7 +76,7 @@ class CalibrateLinear():
                     rospy.loginfo(params)
                 else:
                     #if not, move in the appropriate direction
-                    move_cmd.linear.y = copysign(self.speed, -1*error)
+                    move_cmd.linear.x = copysign(self.speed, -1*error)
             else:
                 self.position = self.get_position()
                 x_start = self.position.x

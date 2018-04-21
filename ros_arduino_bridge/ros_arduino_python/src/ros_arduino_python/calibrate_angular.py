@@ -36,8 +36,8 @@ class CalibrateAngular():
         # The test angle is 360 degrees
         self.test_angle = radians(rospy.get_param('~test_angle', 360.0))
 
-        self.speed = rospy.get_param('~speed', 0.05) # radians per second
-        self.tolerance = radians(rospy.get_param('tolerance', 1)) # degrees converted to radians
+        self.speed = rospy.get_param('~speed', 0.5) # radians per second
+        self.tolerance = radians(rospy.get_param('tolerance', 3)) # degrees converted to radians
         self.odom_angular_scale_correction = rospy.get_param('~odom_angular_scale_correction', 1.0)
         self.start_test = rospy.get_param('~start_test', True)
         
@@ -45,7 +45,7 @@ class CalibrateAngular():
         self.cmd_vel = rospy.Publisher('/cmd_vel', Twist, queue_size=5)
  
         # The base frame is usually base_link or base_footprint
-        self.base_frame = rospy.get_param('~base_frame', '/base_link')
+        self.base_frame = rospy.get_param('~base_frame', '/base_footprint')
 
         # The odom frame is usually just /odom
         self.odom_frame = rospy.get_param('~odom_frame', '/odom')

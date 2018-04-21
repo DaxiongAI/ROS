@@ -34,7 +34,7 @@ Teleop::Teleop():
   angular_z(2),
   deadman_axis_(6),
   l_scale_(0.3),
-  a_scale_(0.05)
+  a_scale_(0.5)
 {
   ph_.param("axis_linear_x", linear_x, linear_x);
   ph_.param("axis_linear_y", linear_y, linear_y);
